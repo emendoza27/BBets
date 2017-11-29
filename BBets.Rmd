@@ -1,6 +1,6 @@
 ---
 title: "Brownlows Bets"
-author: "Put your name here!"
+author: "Elisabet Mendoza"
 date: "put the date here"
 output: html_document: default
  ---
