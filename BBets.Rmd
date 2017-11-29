@@ -81,4 +81,75 @@ timesdone[j] <- hiswinning
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If professor Brownlow is consistantly making or losing money how could he change his payout so that his profits center on zero?  Also discuss what size his class should be in order to have his current scheme balance at zero profit.!-->
+To see what is driving Brownlows profit it appears to me there is class size or the bet odd. Lets first explore the odds. Suppose he gives you 4 dollars instead of 2. 
 
+First we construct our birthday bucket
+
+```{r}
+bdays = 1:135
+#bank is a vector in which we add brownlows profit or loss for each class
+bank=numeric(1137)
+profitPerClass=numeric(30)
+```
+
+now we grab 35 of these with replacemnt to form our class need to see if any two are the same for all 1137 bets.
+
+```{r}
+for (j in 1:30) {
+  for (i in 1:1137) {
+    class <- sample(x=bdays, size = 35, replace = TRUE)
+    result = anyDuplicated(class)
+    bank[i] <- ifelse(result==0,-4.5,1)
+  }
+  profit = sum(bank)
+  profitPerClass[j] = profit
+}
+```
+
+now for our final estimate
+
+```{r}
+estimate = mean(profitPerClass)
+print(estimate)
+confidence = c(estimate - 2*sd(profitPerClass),estimate + 2*sd(profitPerClass))
+print(confidence)
+```
+
+## estimate of winnings: `r round(estimate,0)`
+## 95% confidence interval `r round(confidence,0)`
+
+It appears that 4.5 to 1 odds balances out this bet if the class has 35 students in it.
+What is the right size class for 2 to 1 to be a fair bet?
+
+```{r}
+bdays = 1:135
+#bank is a vector in which we add brownlows profit or loss for each class
+bank=numeric(1137)
+profitPerClass=numeric(30)
+```
+
+now we grab 35 of these with replacement to form our class need to see if any two are the same for all 1137 bets
+
+```{r}
+for (j in 1:30) {
+  for (i in 1:1137) {
+    class <- sample(x=bdays, size = 29, replace = TRUE)
+    result = anyDuplicated(class)
+    bank[i] <- ifelse(result==0,-2,1)
+  }
+  
+  profit = sum(bank)
+  profitPerClass[j] = profit
+  
+}
+```
+
+
+now for our final estimate as
+
+```{r}
+estimate = mean(profitPerClass)
+print(estimate)
+confidence = c(estimate - 2*sd(profitPerClass), estimate + 2*sd(profitPerClass))
+print(confidence)
+```
