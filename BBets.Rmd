@@ -23,11 +23,60 @@ We will aproach this problem through a sequence of simulations. first we will le
 
 <!--Explain and display the results of your method of coming up with the estimate of professor Brownlows betting!-->
 
+First we create our Bdays
+
+```{r}
+Bdays <-1:365
+brownprofit=numeric(1137)
+```
+
+Now we pick 35 of them to from a class and loop through 1137 classes keeping score
+
+```{r}
+for(i in 1:1137){
+  
+  ourclass <- sample(x=Bdays, size = 35,replace =TRUE)
+  
+  xx <- anyDuplicated(ourclass)
+  
+  brownprofit [i]<- ifelse(xx>0,1,-2)
+}
+
+hiswinning <- sum(brownprofit)
+print(hiswinning)
+  
+```
+###Brownlow's profit `r hiswinning`
+
+
 
 # Confidence interval of Brownlows earning
 
 <!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows-->
 
+```{r}
+Bdays <-1:365
+brownprofit=numeric(1137)
+timesdone=numeric(30)
+```
+
+Now we pick 35 of them to from a class and loop through 1137 classes keeping score
+
+```{r}
+for(j in 1:30){
+for(i in 1:1137){
+  
+  ourclass <- sample(x=Bdays, size = 35,replace =TRUE)
+  
+  xx <- anyDuplicated(ourclass)
+  
+  brownprofit [i]<- ifelse(xx>0,1,-2)
+}
+
+hiswinning <- sum(brownprofit)
+timesdone[j] <- hiswinning
+}
+```
 
 # Discussion and Conclusion
 
